@@ -11,6 +11,10 @@
     "ios",
     "android"
   ],
+  "files": [
+    "LICENSE.md",
+    "index.js"
+  ],
   "main": "index.js",
   "scripts": {
     "fix": "npm run lint -- --fix",
