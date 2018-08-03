@@ -17,9 +17,10 @@ const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -60;
 
 export default class Search extends Component {
   static propTypes = {
+    input: PropTypes.string.isRequired,
     data: PropTypes.array,
     placeholder: PropTypes.string,
-    handleChangeText: PropTypes.func,
+    handleChangeText: PropTypes.func.isRequired,
     handleSearch: PropTypes.func,
     handleResults: PropTypes.func,
     onSubmitEditing: PropTypes.func,
@@ -61,6 +62,7 @@ export default class Search extends Component {
   };
 
   static defaultProps = {
+    input: '',
     data: [],
     placeholder: 'Search',
     backButtonAccessibilityLabel: 'Navigate up',
@@ -96,7 +98,6 @@ export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
       show: props.showOnLoad,
       top: new Animated.Value(
         props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust
@@ -104,18 +105,15 @@ export default class Search extends Component {
     };
   }
 
-  getValue = () => {
-    return this.state.input;
-  };
-
-  setValue = (input) => {
-    return this.setState({input})
-  };
-
   show = () => {
-    const { animate, animationDuration, clearOnShow } = this.props;
+    const {
+      animate,
+      animationDuration,
+      clearOnShow,
+      handleChangeText
+    } = this.props;
     if (clearOnShow) {
-      this.setState({ input: '' });
+      handleChangeText('');
     }
     this.setState({ show: true });
     if (animate) {
@@ -132,7 +130,7 @@ export default class Search extends Component {
   hide = () => {
     const { onHide, animate, animationDuration } = this.props;
     if (onHide) {
-      onHide(this.state.input);
+      onHide();
     }
     if (animate) {
       Animated.timing(this.state.top, {
@@ -151,10 +149,10 @@ export default class Search extends Component {
   };
 
   _doHide = () => {
-    const { clearOnHide } = this.props;
+    const { clearOnHide, handleChangeText } = this.props;
     this.setState({ show: false });
     if (clearOnHide) {
-      this.setState({ input: '' });
+      handleChangeText('');
     }
   };
 
@@ -175,26 +173,23 @@ export default class Search extends Component {
   };
 
   _clearInput = () => {
-    this.setState({ input: '' });
     this._onChangeText('');
   };
 
   _onChangeText = input => {
     const { handleChangeText, handleSearch, handleResults } = this.props;
-    this.setState({ input });
-    if (handleChangeText) {
-      handleChangeText(input);
-    }
+    handleChangeText(input);
+
     if (handleSearch) {
       handleSearch(input);
     } else {
-      debounce(() => {
-        // use internal search logic (depth first)!
-        if (handleResults) {
+      if (handleResults) {
+        debounce(() => {
+          // use internal search logic (depth first)!
           const results = this._internalSearch(input);
           handleResults(results);
-        }
-      }, 500)();
+        }, 500)();
+      }
     }
   };
 
@@ -317,7 +312,7 @@ export default class Search extends Component {
                 onBlur={this._handleBlur}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
-                value={this.state.input}
+                value={this.props.input}
                 underlineColorAndroid="transparent"
                 returnKeyType="search"
                 autoCorrect={autoCorrect}
@@ -330,7 +325,7 @@ export default class Search extends Component {
                 accessibilityComponentType="button"
                 accessibilityLabel={closeButtonAccessibilityLabel}
                 onPress={
-                  hideX || this.state.input === '' ? null : this._handleX
+                  hideX || this.props.input === '' ? null : this._handleX
                 }>
                 {closeButton ? (
                   <View style={{ width: backCloseSize, height: backCloseSize }}>
@@ -342,7 +337,7 @@ export default class Search extends Component {
                     size={backCloseSize}
                     style={{
                       color:
-                        hideX || this.state.input == ''
+                        hideX || this.props.input == ''
                           ? backgroundColor
                           : iconColor,
                       padding: heightAdjust / 2 + 10
