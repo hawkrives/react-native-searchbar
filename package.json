@@ -28,13 +28,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/localz/react-native-searchbar.git"
+    "url": "git+https://github.com/hawkrives/react-native-searchbar-controlled.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/localz/react-native-searchbar/issues"
+    "url": "https://github.com/hawkrives/react-native-searchbar-controlled/issues"
   },
-  "homepage": "https://github.com/localz/react-native-searchbar#readme",
+  "homepage": "https://github.com/hawkrives/react-native-searchbar-controlled#readme",
   "dependencies": {
     "lodash": "^4.16.4",
     "react-native-vector-icons": "^4.4.2"
