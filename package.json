@@ -1,7 +1,7 @@
 {
-  "name": "react-native-searchbar",
-  "version": "1.15.0",
-  "description": "A pretty awesome search bar for React Native",
+  "name": "react-native-searchbar-controlled",
+  "version": "1.0.0",
+  "description": "A pretty awesome search bar for React Native (controlled)",
   "keywords": [
     "react-native",
     "search",
@@ -23,6 +23,9 @@
     "email": "do@localz.co",
     "url": "https://github.com/daveols"
   },
+  "contributors": [
+    "Hawken Rives <hawkrives@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/localz/react-native-searchbar.git"

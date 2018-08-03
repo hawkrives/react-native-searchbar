@@ -12,22 +12,22 @@ Works on both iOS and Android.
 
 ## Installation
 
-- `npm install react-native-searchbar --save`
+- `npm install react-native-searchbar-controlled --save`
 - Install [`react-native-vector-icons`](https://github.com/oblador/react-native-vector-icons) if the project doesn't have them already. The search bar accesses MaterialIcons.
-- Now you can require the search bar with  `import SearchBar from 'react-native-searchbar'` or `var SearchBar = require('react-native-searchbar')`
+- Now you can require the search bar with  `import SearchBar from 'react-native-searchbar-controlled'` or `var SearchBar = require('react-native-searchbar-controlled')`
 
 ## Available Props
 
 Property	|	Type		|	Default		|	Description |
 :---------|:--------|:----------|:------------|
+input | string | `''` | The value of the searchbox
 data	|	array	|	`[]`	|	The array of data to be searched (if not using a custom search algorithm)
 placeholder	|	string	|	`Search`	|	The placeholder for the search bar.
 handleChangeText(input) | function | `null` | Fires when the input text changes.
 handleSearch(input) | function | `null` | Fires after `handleChangeText`, and can be used to implement a custom search. If not present, the internal search logic will be used.
 handleResults(results) | function | `null` | Fires after each internal search with the results array.
 onSubmitEditing | function | `null` | Fired after pressing 'search' on the device keyboard
-getValue | function | `null` | Returns the current value of the search bar input.
-onHide(input) | function | `null` | Fires when the search bar is hidden with the current user input.
+onHide() | function | `null` | Fires when the search bar is hidden.
 onBack | function | Hides the search bar | Fires when the back icon is pressed.
 onX | function | `null` | Fires when the X button is pressed. Still clears the input.
 onFocus | function | `null` | Fires when the search bar receives focus.
@@ -69,7 +69,6 @@ allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`,
 - Use a ref to show and hide the search bar and set the text input value`ref={(ref) => this.searchBar = ref}`
 	- `this.searchBar.show()`
 	- `this.searchBar.hide()`
-	- `this.searchBar.setValue("text to set")`
 
 - Write your own search logic with `handleSearch` or provide some `data` and use the results handed back from `handleResults`.
 - Use your powers for good!
@@ -140,7 +139,7 @@ Contributing to `react-native-searchbar` is easy! With four simple steps:
 1. `git pull origin master` to pull the latest code
 1. `npm install` to install the project's dependencies
 1. `git checkout -b the-name-of-my-branch` to create a branch (use something short and comprehensible, such as: `fix-styling-of-search-bar`).
-  
+
 ### Make the change
 
 ### Test the change
