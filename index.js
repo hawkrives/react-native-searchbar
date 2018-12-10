@@ -6,7 +6,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Animated
+  Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -58,7 +58,7 @@ export default class Search extends Component {
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -92,7 +92,7 @@ export default class Search extends Component {
     allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
-    editable: true
+    editable: true,
   };
 
   constructor(props) {
@@ -101,7 +101,7 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(
         props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust
-      )
+      ),
     };
   }
 
@@ -110,7 +110,7 @@ export default class Search extends Component {
       animate,
       animationDuration,
       clearOnShow,
-      handleChangeText
+      handleChangeText,
     } = this.props;
     if (clearOnShow) {
       handleChangeText('');
@@ -244,7 +244,7 @@ export default class Search extends Component {
       closeButtonAccessibilityLabel,
       backCloseSize,
       fontSize,
-      editable
+      editable,
     } = this.props;
     return (
       <Animated.View
@@ -253,30 +253,40 @@ export default class Search extends Component {
           {
             transform: [
               {
-                translateY: this.state.top
-              }
+                translateY: this.state.top,
+              },
             ],
-            shadowOpacity: iOSHideShadow ? 0 : 0.7
-          }
-        ]}>
+            shadowOpacity: iOSHideShadow ? 0 : 0.7,
+          },
+        ]}
+      >
         {this.state.show && (
           <View style={[styles.navWrapper, { backgroundColor }]}>
-            {Platform.OS === 'ios' &&
-              iOSPadding && <View style={{ height: 20, backgroundColor: iOSPaddingBackgroundColor }} />}
+            {Platform.OS === 'ios' && iOSPadding && (
+              <View
+                style={{
+                  height: 20,
+                  backgroundColor: iOSPaddingBackgroundColor,
+                }}
+              />
+            )}
             <View
               style={[
                 styles.nav,
-                { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust }
-              ]}>
+                { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
+              ]}
+            >
               {!hideBack && (
                 <TouchableOpacity
                   accessible={true}
                   accessibilityComponentType="button"
                   accessibilityLabel={backButtonAccessibilityLabel}
-                  onPress={onBack || this.hide}>
+                  onPress={onBack || this.hide}
+                >
                   {backButton ? (
                     <View
-                      style={{ width: backCloseSize, height: backCloseSize }}>
+                      style={{ width: backCloseSize, height: backCloseSize }}
+                    >
                       {backButton}
                     </View>
                   ) : (
@@ -285,7 +295,7 @@ export default class Search extends Component {
                       size={backCloseSize}
                       style={{
                         color: iconColor,
-                        padding: heightAdjust / 2 + 10
+                        padding: heightAdjust / 2 + 10,
                       }}
                     />
                   )}
@@ -301,13 +311,15 @@ export default class Search extends Component {
                     color: textColor,
                     fontFamily: fontFamily,
                     marginLeft: hideBack ? 30 : 0,
-                    marginTop: Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0
-                  }
+                    marginTop:
+                      Platform.OS === 'ios' ? heightAdjust / 2 + 10 : 0,
+                  },
                 ]}
                 selectionColor={selectionColor}
                 onChangeText={input => this._onChangeText(input)}
                 onSubmitEditing={() =>
-                  onSubmitEditing ? onSubmitEditing() : null}
+                  onSubmitEditing ? onSubmitEditing() : null
+                }
                 onFocus={() => (onFocus ? onFocus() : null)}
                 onBlur={this._handleBlur}
                 placeholder={placeholder}
@@ -326,7 +338,8 @@ export default class Search extends Component {
                 accessibilityLabel={closeButtonAccessibilityLabel}
                 onPress={
                   hideX || this.props.input === '' ? null : this._handleX
-                }>
+                }
+              >
                 {closeButton ? (
                   <View style={{ width: backCloseSize, height: backCloseSize }}>
                     {closeButton}
@@ -340,7 +353,7 @@ export default class Search extends Component {
                         hideX || this.props.input == ''
                           ? backgroundColor
                           : iconColor,
-                      padding: heightAdjust / 2 + 10
+                      padding: heightAdjust / 2 + 10,
                     }}
                   />
                 )}
@@ -359,29 +372,29 @@ const styles = StyleSheet.create({
     zIndex: 10,
     position: 'absolute',
     elevation: 2,
-    shadowRadius: 5
+    shadowRadius: 5,
   },
   navWrapper: {
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
   },
   nav: {
     ...Platform.select({
       android: {
         borderBottomColor: 'lightgray',
-        borderBottomWidth: StyleSheet.hairlineWidth
-      }
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      },
     }),
     flex: 1,
     flexBasis: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   input: {
     ...Platform.select({
       ios: { height: 30 },
-      android: { height: 50 }
+      android: { height: 50 },
     }),
-    width: Dimensions.get('window').width - 120
-  }
+    width: Dimensions.get('window').width - 120,
+  },
 });
