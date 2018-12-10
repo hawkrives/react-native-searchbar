@@ -9,21 +9,14 @@ import {
   Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import filter from 'lodash/filter';
-import some from 'lodash/some';
-import includes from 'lodash/includes';
-import debounce from 'lodash/debounce';
 
 const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -60;
 
 export default class Search extends Component {
   static propTypes = {
     input: PropTypes.string.isRequired,
-    data: PropTypes.array,
     placeholder: PropTypes.string,
     handleChangeText: PropTypes.func.isRequired,
-    handleSearch: PropTypes.func,
-    handleResults: PropTypes.func,
     onSubmitEditing: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -58,13 +51,11 @@ export default class Search extends Component {
     autoCapitalize: PropTypes.string,
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
-    allDataOnEmptySearch: PropTypes.bool,
     editable: PropTypes.bool,
   };
 
   static defaultProps = {
     input: '',
-    data: [],
     placeholder: 'Search',
     backButtonAccessibilityLabel: 'Navigate up',
     closeButtonAccessibilityLabel: 'Clear search text',
@@ -90,7 +81,6 @@ export default class Search extends Component {
     autoCapitalize: 'sentences',
     keyboardAppearance: 'default',
     fontFamily: 'System',
-    allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
     editable: true,
@@ -178,43 +168,7 @@ export default class Search extends Component {
   };
 
   _onChangeText = input => {
-    const { handleChangeText, handleSearch, handleResults } = this.props;
-    handleChangeText(input);
-
-    if (handleSearch) {
-      handleSearch(input);
-    } else {
-      if (handleResults) {
-        debounce(() => {
-          // use internal search logic (depth first)!
-          const results = this._internalSearch(input);
-          handleResults(results);
-        }, 500)();
-      }
-    }
-  };
-
-  _internalSearch = input => {
-    const { data, allDataOnEmptySearch } = this.props;
-    if (input === '') {
-      return allDataOnEmptySearch ? data : [];
-    }
-    return filter(data, item => {
-      return this._depthFirstSearch(item, input);
-    });
-  };
-
-  _depthFirstSearch = (collection, input) => {
-    // let's get recursive boi
-    let type = typeof collection;
-    // base case(s)
-    if (type === 'string' || type === 'number' || type === 'boolean') {
-      return includes(
-        collection.toString().toLowerCase(),
-        input.toString().toLowerCase()
-      );
-    }
-    return some(collection, item => this._depthFirstSearch(item, input));
+    this.props.handleChangeText(input);
   };
 
   render = () => {
