@@ -30,9 +30,9 @@ export default class Search extends Component {
     onHide: PropTypes.func,
     onBack: PropTypes.func,
     onX: PropTypes.func,
-    backButton: PropTypes.object,
+    backButton: PropTypes.object.isRequired,
     backButtonAccessibilityLabel: PropTypes.string,
-    closeButton: PropTypes.object,
+    closeButton: PropTypes.object.isRequired,
     closeButtonAccessibilityLabel: PropTypes.string,
     backCloseSize: PropTypes.number,
     fontSize: PropTypes.number,
@@ -277,29 +277,16 @@ export default class Search extends Component {
                 { height: (Platform.OS === 'ios' ? 52 : 62) + heightAdjust },
               ]}
             >
-              {!hideBack && (
+              {!hideBack && backButton && (
                 <TouchableOpacity
                   accessible={true}
                   accessibilityComponentType="button"
                   accessibilityLabel={backButtonAccessibilityLabel}
                   onPress={onBack || this.hide}
                 >
-                  {backButton ? (
-                    <View
-                      style={{ width: backCloseSize, height: backCloseSize }}
-                    >
-                      {backButton}
-                    </View>
-                  ) : (
-                    <Icon
-                      name="arrow-back"
-                      size={backCloseSize}
-                      style={{
-                        color: iconColor,
-                        padding: heightAdjust / 2 + 10,
-                      }}
-                    />
-                  )}
+                  <View style={{ width: backCloseSize, height: backCloseSize }}>
+                    {backButton}
+                  </View>
                 </TouchableOpacity>
               )}
               <TextInput
@@ -333,32 +320,20 @@ export default class Search extends Component {
                 keyboardAppearance={keyboardAppearance}
                 editable={editable}
               />
-              <TouchableOpacity
-                accessible={true}
-                accessibilityComponentType="button"
-                accessibilityLabel={closeButtonAccessibilityLabel}
-                onPress={
-                  hideX || this.props.input === '' ? null : this._handleX
-                }
-              >
-                {closeButton ? (
+              {closeButton && (
+                <TouchableOpacity
+                  accessible={true}
+                  accessibilityComponentType="button"
+                  accessibilityLabel={closeButtonAccessibilityLabel}
+                  onPress={
+                    hideX || this.props.input === '' ? null : this._handleX
+                  }
+                >
                   <View style={{ width: backCloseSize, height: backCloseSize }}>
                     {closeButton}
                   </View>
-                ) : (
-                  <Icon
-                    name={'close'}
-                    size={backCloseSize}
-                    style={{
-                      color:
-                        hideX || this.props.input == ''
-                          ? backgroundColor
-                          : iconColor,
-                      padding: heightAdjust / 2 + 10,
-                    }}
-                  />
-                )}
-              </TouchableOpacity>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         )}
