@@ -17,6 +17,7 @@
   ],
   "main": "index.js",
   "scripts": {
+    "p": "prettier --write *.js",
     "fix": "npm run lint -- --fix",
     "lint": "eslint index.js",
     "prepublishOnly": "npm run test",
@@ -30,14 +31,9 @@
   "contributors": [
     "Hawken Rives <hawkrives@gmail.com>"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hawkrives/react-native-searchbar-controlled.git"
-  },
+  "repository": "git://github.com/hawkrives/react-native-searchbar-controlled.git",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hawkrives/react-native-searchbar-controlled/issues"
-  },
+  "bugs": "https://github.com/hawkrives/react-native-searchbar-controlled/issues",
   "homepage": "https://github.com/hawkrives/react-native-searchbar-controlled#readme",
   "dependencies": {
     "lodash": "^4.16.4",
@@ -52,6 +48,10 @@
     "eslint-plugin-react-native": "^3.1.0",
     "prettier": "^1.15.3",
     "prop-types": "^15.5.10"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "eslintConfig": {
     "extends": [
