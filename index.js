@@ -9,9 +9,10 @@ import {
   Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { filter, some, includes } from 'lodash/collection';
-import { debounce } from 'lodash/function';
+import filter from 'lodash/filter';
+import some from 'lodash/some';
+import includes from 'lodash/includes';
+import debounce from 'lodash/debounce';
 
 const INITIAL_TOP = Platform.OS === 'ios' ? -80 : -60;
 
