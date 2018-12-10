@@ -35,10 +35,6 @@
   "license": "MIT",
   "bugs": "https://github.com/hawkrives/react-native-searchbar-controlled/issues",
   "homepage": "https://github.com/hawkrives/react-native-searchbar-controlled#readme",
-  "dependencies": {
-    "lodash": "^4.16.4",
-    "react-native-vector-icons": "^4.4.2"
-  },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
     "eslint": "^4.8.0",
