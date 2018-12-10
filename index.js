@@ -247,16 +247,13 @@ export default class Search extends Component {
       fontSize,
       editable,
     } = this.props;
+
     return (
       <Animated.View
         style={[
           styles.container,
           {
-            transform: [
-              {
-                translateY: this.state.top,
-              },
-            ],
+            transform: [{ translateY: this.state.top }],
             shadowOpacity: iOSHideShadow ? 0 : 0.7,
           },
         ]}
